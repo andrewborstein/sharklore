@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SHARKLORE.COM</title>
+  <meta name="description" content="Sharklore">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦈</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@600&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background: linear-gradient(160deg, #02060f, #052a45, #0a4d68, #021526, #02060f);
+      background-size: 400% 400%;
+      animation: tide 24s ease-in-out infinite;
+    }
+
+    /* Light filtering down from the surface */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -50%;
+      background: radial-gradient(ellipse at 50% 0%, rgba(120, 220, 255, 0.18), transparent 55%);
+      animation: drift 18s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 12vh;
+      /* Offsets the trailing letter-spacing so the text stays centered */
+      padding: 0 16px 0 calc(16px + 0.3em);
+      font-family: "Jost", "Futura", sans-serif;
+      font-weight: 600;
+      font-size: clamp(1.75rem, 7vw, 7rem);
+      letter-spacing: 0.3em;
+      text-align: center;
+      color: #a8dcf0;
+      filter: drop-shadow(0 0 30px rgba(80, 200, 255, 0.25));
+      animation: rise 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    /* On phones, stack the name and spread each line's letters to the same width */
+    @media (max-width: 600px) {
+      h1 {
+        padding: 0;
+        font-size: 17vw;
+        line-height: 1.1;
+        letter-spacing: 0;
+        animation-name: rise-stacked;
+      }
+
+      h1 .line {
+        display: flex;
+        justify-content: space-between;
+        width: 76vw;
+      }
+    }
+
+    .sea {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 30vh;
+      pointer-events: none;
+    }
+
+    /* Each strip holds two identical wave periods, so sliding it by half loops seamlessly */
+    .wave {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: max(200%, 3200px);
+      animation: roll linear infinite, swell ease-in-out infinite alternate;
+    }
+
+    .wave.back { height: 100%; fill: rgba(40, 140, 180, 0.25); animation-duration: 22s, 5s; }
+    .wave.mid { height: 75%; fill: #083c5c; animation-duration: 14s, 4s; animation-delay: 0s, -1.5s; }
+    .wave.front { height: 50%; fill: #03182a; animation-duration: 9s, 3.5s; animation-delay: 0s, -2.5s; }
+    .wave.front .foam { fill: none; stroke: rgba(220, 248, 255, 0.55); stroke-width: 3; vector-effect: non-scaling-stroke; }
+
+    /* Sized from the sea's height so it clears the wave troughs at any screen width.
+       The part below the fin's base stays underwater, so it never floats. */
+    .fin {
+      position: absolute;
+      bottom: -4%;
+      left: 0;
+      height: 50%;
+      animation: patrol 26s linear infinite;
+    }
+
+    .fin svg {
+      display: block;
+      height: 100%;
+      width: auto;
+      fill: #4a6878;
+      filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.4));
+      animation: bob 2.6s ease-in-out infinite alternate;
+    }
+
+    @keyframes tide {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes drift {
+      from { transform: translateX(-8%) rotate(-4deg); }
+      to { transform: translateX(8%) rotate(4deg); }
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(40px); letter-spacing: 0.6em; filter: blur(12px); }
+      to { opacity: 1; transform: none; letter-spacing: 0.3em; filter: drop-shadow(0 0 30px rgba(80, 200, 255, 0.25)); }
+    }
+
+    @keyframes rise-stacked {
+      from { opacity: 0; transform: translateY(40px); filter: blur(12px); }
+      to { opacity: 1; transform: none; filter: drop-shadow(0 0 30px rgba(80, 200, 255, 0.25)); }
+    }
+
+    @keyframes roll {
+      to { translate: -50% 0; }
+    }
+
+    @keyframes swell {
+      from { transform: translateY(6%); }
+      to { transform: translateY(-6%); }
+    }
+
+    @keyframes patrol {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(100vw); }
+    }
+
+    @keyframes bob {
+      from { transform: translateY(5%) rotate(-3deg); }
+      to { transform: translateY(-5%) rotate(3deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body, body::before, h1, .wave, .fin, .fin svg { animation: none; }
+      .fin { transform: translateX(60vw); }
+    }
+  </style>
+</head>
+<body>
+  <h1 aria-label="SHARKLORE.COM"><span class="line"><span>S</span><span>H</span><span>A</span><span>R</span><span>K</span></span><span class="line"><span>L</span><span>O</span><span>R</span><span>E</span></span><span class="line"><span>.</span><span>C</span><span>O</span><span>M</span></span></h1>
+
+  <div class="sea" aria-hidden="true">
+    <svg class="wave back" viewBox="0 0 1600 200" preserveAspectRatio="none">
+      <path d="M0 90 Q100 10 200 90 T400 90 T600 90 T800 90 T1000 90 T1200 90 T1400 90 T1600 90 V200 H0 Z" />
+    </svg>
+
+    <div class="fin">
+      <svg viewBox="0 0 100 130">
+        <path d="M100 80 C80 50 50 15 15 0 C28 30 32 58 30 80 L30 130 H100 Z" />
+      </svg>
+    </div>
+
+    <svg class="wave mid" viewBox="0 0 1600 200" preserveAspectRatio="none">
+      <path d="M0 100 Q100 30 200 100 T400 100 T600 100 T800 100 T1000 100 T1200 100 T1400 100 T1600 100 V200 H0 Z" />
+    </svg>
+
+    <svg class="wave front" viewBox="0 0 1600 200" preserveAspectRatio="none">
+      <path d="M0 110 Q100 50 200 110 T400 110 T600 110 T800 110 T1000 110 T1200 110 T1400 110 T1600 110 V200 H0 Z" />
+      <path class="foam" d="M0 110 Q100 50 200 110 T400 110 T600 110 T800 110 T1000 110 T1200 110 T1400 110 T1600 110" />
+    </svg>
+  </div>
+</body>
+</html>
